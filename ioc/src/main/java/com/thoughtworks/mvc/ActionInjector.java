@@ -64,20 +64,16 @@ public class ActionInjector {
     }
 
     private void invokeNestedStructureSetter(Method setter, String fieldName) {
-        ActionInjector subObjectInjector = null;
+        ActionInjector subObjectInjector;
         try {
             subObjectInjector = new ActionInjector(setter.getParameterTypes()[0], nestedSubParameterMap.get(fieldName));
-        } catch (IllegalAccessException e) {
-            throw new IllegalArgumentException(e);
-        } catch (InstantiationException e) {
+        } catch (IllegalAccessException | InstantiationException e) {
             throw new IllegalArgumentException(e);
         }
 
         try {
-            setter.invoke(action, subObjectInjector.inject());
-        } catch (IllegalAccessException e) {
-            throw new IllegalArgumentException(e);
-        } catch (InvocationTargetException e) {
+            setter.invoke(action, new Object[]{subObjectInjector.inject()});
+        } catch (IllegalAccessException | InvocationTargetException e) {
             throw new IllegalArgumentException(e);
         }
     }
