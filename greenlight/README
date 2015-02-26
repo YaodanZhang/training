@@ -1,0 +1,38 @@
+单元测试框架实现
+
+############ workshop之前完成的工作 #############
+
+0. gradle项目，引入jUnit4
+
+1. 用反射创建Duck对象。
+
+2. 用反射调用Duck对象的quark方法，返回"I am a duck"。
+
+3. 用反射调用Duck对象带参数的quark(String name)方法，返回"My name is ..."
+
+############ workshop第一步，简单讲解反射 ##################
+
+Share 代码（每人两分钟）
+short retro。把反射的基础知识快速的过一遍，讲解错误或者不规范的地方。（5分钟）
+
+############ workshop第二步，实现一个单元测试框架：greenLight ######################
+
+让大家自己列开发步骤。(10分钟)
+
+参考步骤：
+
+0. 思考测试策略，创建一个DummyTest，一个方法，testWithAnnotation()。（5分钟）
+
+1. 介绍Annotation，实现一个@Case。用@Case将DummyTest中的方法testWithAnnotation()标记。（5分钟）
+
+2. 创建一个Runner类，一个方法，runTest()，用反射调用DummyTest中的的所有方法。（10分钟）
+    得到Class对象（3分钟）
+    创建Class对象对应的实例（2分钟）
+    调用其中有@Case标记的方法（5分钟）
+
+3. 重构：
+    抽象一个TestHandler类，作为一个测试单元，实现其run()方法；（5分钟）
+    抽一个Parser类，创建getTestMethods()方法，通过反射生成TestHandler列表。（5分钟）
+    重写Runner。（2分钟）
+
+课后作业，实现@Setup和@Teardown及相应的功能。
